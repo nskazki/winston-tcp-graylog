@@ -115,6 +115,12 @@ class WinstonTcpGraylog extends winston.Transport {
   }
 
   log(humanLevel, fmtMsg, rawMeta, callback) {
+    if (this.silent) {
+      let res = `BellmanGraylog#handler skip: module was silent!`
+      bgDebug(res)
+      return this.emit('skip', res)
+    }
+
     // prepare resMsg
     let level = this._levelMap[humanLevel]
     if (!isNumber(level)) {
