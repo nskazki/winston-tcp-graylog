@@ -42,7 +42,7 @@ class WinstonTcpGraylog extends winston.Transport {
 
   _setupConfig(config) {
     let err = validate('config', config)
-    if (err) throw new Error(`BellmanGraylog#new problem: config has wrong format!\
+    if (err) throw new Error(`WinstonTcpGraylog#new problem: config has wrong format!\
       \n\t config: ${inspect(config)}\
       \n\t err: ${inspect(err)}`)
     this._config = config
@@ -116,7 +116,7 @@ class WinstonTcpGraylog extends winston.Transport {
 
   log(humanLevel, fmtMsg, rawMeta, callback) {
     if (this.silent) {
-      let res = `BellmanGraylog#handler skip: module was silent!`
+      let res = `WinstonTcpGraylog#handler skip: module was silent!`
       bgDebug(res)
       return this.emit('skip', res)
     }
@@ -124,7 +124,7 @@ class WinstonTcpGraylog extends winston.Transport {
     // prepare resMsg
     let level = this._levelMap[humanLevel]
     if (!isNumber(level)) {
-      let err = new Error(`BellmanGraylog#handler problem: level not found! \
+      let err = new Error(`WinstonTcpGraylog#handler problem: level not found! \
         \n\t humanLevel: %{humanLevel}`)
       wtgDebug(err)
       this.emit('error', err)
@@ -136,7 +136,7 @@ class WinstonTcpGraylog extends winston.Transport {
       .filter(v => isString(v) && (trim(v).length > 0))[0]
 
     if (short_message.length === 0) {
-      let res = `BellmanGraylog#handler skip: catch empty message: \
+      let res = `WinstonTcpGraylog#handler skip: catch empty message: \
         \n\t fmtMsg: ${fmtMsg} \
         \n\t rawMeta: ${inspect(rawMeta)}`
       wtgDebug(res)
@@ -159,7 +159,7 @@ class WinstonTcpGraylog extends winston.Transport {
         callback(null, gelfMsg, res)
       })
       .catch((rawErr = {}) => {
-        let message = `BellmanGraylog#handler problem: gelf-pro return error! \
+        let message = `WinstonTcpGraylog#handler problem: gelf-pro return error! \
           \n\t err: ${rawErr.message || inspect(rawErr)}`
         let err = rawErr.message
           ? extend(rawErr, { message })
