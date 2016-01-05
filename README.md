@@ -4,7 +4,7 @@
 npm i -S winston-tcp-graylog winston
 ```
 
-A [graylog2][http://www.graylog2.org] transport for [winston][https://github.com/flatiron/winston] based on the [node-gelf-pro][https://github.com/kkamkou/node-gelf-pro] library. Support TCP and UPD protocol.
+A [graylog2](http://www.graylog2.org) transport for [winston](https://github.com/flatiron/winston) based on the [node-gelf-pro](https://github.com/kkamkou/node-gelf-pro) library. Support TCP and UPD protocol.
 
 ### Example
 
