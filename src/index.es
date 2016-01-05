@@ -1,7 +1,7 @@
 'use strict'
 
 import { debugEvents, debugMethods } from 'simple-debugger'
-import { extend, trim, defaults, map, mapValues,
+import { extend, trim, merge, map, mapValues,
   isArray, isNumber, isString, isRegExp,
   isFunction, isObject, isBoolean } from 'lodash'
 import { projectVersion, projectName, projectHost } from './projectInfo'
@@ -28,14 +28,15 @@ class WinstonTcpGraylog extends winston.Transport {
     this._setupBaseMsg()
     this._setupGelf()
 
-    defaults(this, config, {
+    let baseConfig = {
       name: 'tcpGraylog',
       silent: false,
       level: 'info',
       handleExceptions: false,
       humanReadableUnhandledException: false,
       formatter: v => v
-    })
+    }
+    merge(this, baseConfig, this._config)
 
     this.log = this.log.bind(this)
   }
