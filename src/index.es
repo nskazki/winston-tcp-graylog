@@ -1,9 +1,9 @@
 'use strict'
 
 import { debugEvents, debugMethods } from 'simple-debugger'
-import { extend, trim, isNumber,
-  mapValues, isString, isRegExp,
-  isFunction, defaults, isObject } from 'lodash'
+import { extend, trim, defaults, map, mapValues,
+  isArray, isNumber, isString, isRegExp,
+  isFunction, isObject, isBoolean } from 'lodash'
 import { projectVersion, projectName, projectHost } from './projectInfo'
 import { inspect } from 'util'
 import P from 'bluebird'
@@ -79,9 +79,8 @@ class WinstonTcpGraylog extends winston.Transport {
     let appVersion = projectVersion()
     let facility   = projectName()
     let host       = projectHost()
-    let humanTime  = { toJSON: () => moment().format('DD/MM HH:mm:ss (Z)') }
 
-    let myBaseMsg = { appVersion, facility, host, humanTime }
+    let myBaseMsg = { appVersion, facility, host }
     this._baseMsg = extend(myBaseMsg, this._config.baseMsg)
 
     wtgDebug('baseMsg: %j', this._baseMsg)
@@ -97,11 +96,15 @@ class WinstonTcpGraylog extends winston.Transport {
     return this
   }
 
-  _normalizeMeta(rawMeta) {
-    return mapValues(rawMeta, v => {
+  _normalizeMeta(object) {
+    let myMap = isArray(object)
+      ? map
+      : mapValues
+
+    return myMap(object, v => {
       if (isObject(v) && v.message && v.stack) {
         return { message: v.message, stack: v.stack }
-      } else if (isFunction(v) || isRegExp(v)) {
+      } else if (isFunction(v) || isRegExp(v) || isBoolean(v)) {
         return v.toString()
       } else if (isObject(v)) {
         return this._normalizeMeta(v)
@@ -135,10 +138,10 @@ class WinstonTcpGraylog extends winston.Transport {
       return callback(null, res)
     }
 
-    let msgMeta = this._normalizeMeta(rawMeta)
     let full_message = fmtMsg
-    let resMsg = extend({}, this._baseMsg, msgMeta,
-      { level, humanLevel, short_message, full_message })
+    let humanTime  = moment().format('DD/MM HH:mm:ss (Z)')
+    let curMsg = { level, humanLevel, short_message, full_message, humanTime }
+    let resMsg = this._normalizeMeta(extend({}, this._baseMsg, rawMeta, curMsg))
 
     // prepare and send gelfMsg
     let gelfMsg = this._gelf.getStringFromObject(resMsg)
