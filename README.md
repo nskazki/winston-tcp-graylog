@@ -69,9 +69,9 @@ logger.error(`some formatted message \
 * `handleExceptions`: Boolean flag, whenever to handle uncaught exceptions. (default: false)
 * `humanReadableUnhandledException`: Option to get more readable exceptions.
 * `formatter`: See [winston-doc](https://github.com/winstonjs/winston/blob/master/README.md#custom-log-format)
-* `gelfPro`: See [gelfPro-doc](https://github.com/kkamkou/node-gelf-pro) or [my-jjv-schema](https://github.com/nskazki/winston-tcp-graylog/blob/master/src%2Fvalidate.es#L59)
+* `gelfPro`: See [gelfPro-doc](https://github.com/kkamkou/node-gelf-pro) or [my-jjv-schema](https://github.com/nskazki/winston-tcp-graylog/blob/master/src%2Fvalidate.es6#L59)
 * `baseMsg`: Object containing the default message fields.
-* `levelMap`: Object for extending the base [levelMap](https://github.com/nskazki/winston-tcp-graylog/blob/master/src%2Findex.es#L55)
+* `levelMap`: Object for extending the base [levelMap](https://github.com/nskazki/winston-tcp-graylog/blob/master/src%2Findex.es6#L55)
 
 ### DefaultConfig
 
