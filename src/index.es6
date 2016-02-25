@@ -127,7 +127,7 @@ class WinstonTcpGraylog extends winston.Transport {
     let level = this._levelMap[humanLevel]
     if (!isNumber(level)) {
       let err = new Error(`WinstonTcpGraylog#handler problem: level not found! \
-        \n\t humanLevel: %{humanLevel}`)
+        \n\t humanLevel: ${humanLevel}`)
       wtgDebug(err)
       this.emit('error', err)
       return callback(err)
