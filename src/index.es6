@@ -70,7 +70,7 @@ class WinstonTcpGraylog extends winston.Transport {
       'log': 6,
       'debug': 7
     }
-    this._levelMap = extend(myMap, this._config.levelMap)
+    this._levelMap = extend(myMap, (this._config.levelMap || this._config.levels))
 
     wtgDebug('levelMap: %j', this._levelMap)
     return this
