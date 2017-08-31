@@ -137,7 +137,7 @@ class WinstonTcpGraylog extends winston.Transport {
       .split(/[\r\t\n]/)
       .filter(v => isString(v) && (trim(v).length > 0))[0]
 
-    if (short_message.length === 0) {
+    if (!short_message || short_message.length === 0) {
       let res = `WinstonTcpGraylog#handler skip: catch empty message: \
         \n\t fmtMsg: ${fmtMsg} \
         \n\t rawMeta: ${inspect(rawMeta)}`
