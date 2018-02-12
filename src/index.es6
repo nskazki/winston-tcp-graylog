@@ -3,7 +3,7 @@
 import { debugEvents, debugMethods } from 'simple-debugger'
 import { extend, trim, merge, map, mapValues,
   isArray, isNumber, isString, isRegExp,
-  isFunction, isObject, isBoolean } from 'lodash'
+  isFunction, isObject } from 'lodash'
 import { projectVersion, projectName, projectHost } from './projectInfo'
 import { inspect } from 'util'
 import P from 'bluebird'
@@ -97,22 +97,33 @@ class WinstonTcpGraylog extends winston.Transport {
     return this
   }
 
-  _normalizeMeta(object) {
-    let myMap = isArray(object)
-      ? map
-      : mapValues
+  _normalizeMeta(object, tags = new WeakMap()) {
+    if (object !== Object(object)) {
+      // the object is a primitive, it can not have circular references
+      return object
+    }
 
-    return myMap(object, v => {
-      if (isObject(v) && v.message && v.stack) {
-        return { message: v.message, stack: v.stack }
-      } else if (isFunction(v) || isRegExp(v) || isBoolean(v)) {
-        return v.toString()
-      } else if (isObject(v)) {
-        return this._normalizeMeta(v)
-      } else {
-        return v
-      }
-    })
+    if (tags.has(object)) {
+      // the object has already been normalized and it would throw a maximum call stack size exceeded error
+      return '[Circular]'
+    }
+
+    tags.set(object, true)
+
+    if (isArray(object)) {
+      return map(object, v => this._normalizeMeta(v, tags))
+    }
+
+    if (isObject(object) && object.message && object.stack) {
+      // error like object
+      return { message: object.message, stack: object.stack }
+    }
+
+    if (isFunction(object) || isRegExp(object)) {
+      return object.toString()
+    }
+
+    return mapValues(object, v => this._normalizeMeta(v, tags))
   }
 
   log(humanLevel, fmtMsg, rawMeta, callback) {
@@ -149,7 +160,14 @@ class WinstonTcpGraylog extends winston.Transport {
     let full_message = fmtMsg
     let humanTime  = moment().format('DD/MM HH:mm:ss (Z)')
     let curMsg = { level, humanLevel, short_message, full_message, humanTime }
-    let resMsg = this._normalizeMeta(extend({}, this._baseMsg, rawMeta, curMsg))
+
+    // prevent losing raw metadata after calling `_.extend()` when the raw metadata is a primitive
+    rawMeta = rawMeta === Object(rawMeta) ?  rawMeta : { __meta__: rawMeta }
+
+    // prevent losing the stack trace after calling `_.extend()` when the raw metadata is an Error
+    let errorInfo = rawMeta instanceof Error ? { message: rawMeta.message, stack: rawMeta.stack } : {}
+
+    let resMsg = this._normalizeMeta(extend(errorInfo, this._baseMsg, rawMeta, curMsg))
 
     // prepare and send gelfMsg
     let gelfMsg = this._gelf.getStringFromObject(resMsg)
