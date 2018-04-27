@@ -1,10 +1,8 @@
-'use strict'
-
-import { isFunction } from 'lodash'
-import JJV from 'jjv'
+const { isFunction } = require('lodash')
+const JJV = require('jjv')
 
 let jjv = new JJV()
-export default jjv.validate.bind(jjv)
+module.exports = jjv.validate.bind(jjv)
 
 /*
   adapterOptions:

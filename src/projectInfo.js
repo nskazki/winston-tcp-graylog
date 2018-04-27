@@ -1,12 +1,10 @@
-'use strict'
+const pkFind = require('pkginfo').find
+const { isString, trim, isNull, chain } = require('lodash')
+const { execSync } = require('child_process')
+const { hostname } = require('os')
+const { dirname, basename } = require('path')
 
-import { find as pkFind } from 'pkginfo'
-import { isString, trim, isNull, chain } from 'lodash'
-import { execSync } from 'child_process'
-import { hostname } from 'os'
-import { dirname, basename } from 'path'
-
-export function projectVersion() {
+function projectVersion() {
   try {
     let { version } = projectRootPackage()
     if (isString(version) && (trim(version).length > 0)) {
@@ -19,7 +17,7 @@ export function projectVersion() {
   }
 }
 
-export function projectHost() {
+function projectHost() {
   try {
     let params = { encoding: 'utf8', timeout: 1e3 }
     let cmd = 'hostname -f'
@@ -29,7 +27,7 @@ export function projectHost() {
   }
 }
 
-export function projectRootModule() {
+function projectRootModule() {
   return (function _(module) {
     return isNull(module.parent)
       ? module
@@ -37,7 +35,7 @@ export function projectRootModule() {
   })(module)
 }
 
-export function projectRootPackage() {
+function projectRootPackage() {
   return chain(module)
     .thru(projectRootModule)
     .thru(pkFind)
@@ -45,7 +43,7 @@ export function projectRootPackage() {
     .value()
 }
 
-export function projectName() {
+function projectName() {
   try {
     let { name } = projectRootPackage()
     if (isString(name) && (trim(name).length > 0)) {
@@ -58,7 +56,7 @@ export function projectName() {
   }
 }
 
-export function projectDir() {
+function projectDir() {
   try {
     let cwd = process.cwd()
     let { filename } = projectRootModule()
@@ -66,4 +64,13 @@ export function projectDir() {
   } catch (_err) {
     return `[REPL on ${projectHost()}]`
   }
+}
+
+module.exports = {
+    projectVersion,
+    projectHost,
+    projectRootModule,
+    projectRootPackage,
+    projectName,
+    projectDir
 }

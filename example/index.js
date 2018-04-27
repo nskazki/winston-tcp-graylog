@@ -1,9 +1,7 @@
-'use strict'
+const { winston } = require('winston')
+const { WinstonTcpGraylog } = require('../src')
 
-import winston from 'winston'
-import WinstonTcpGraylog from '../src'
-
-var options = {
+const options = {
   name: 'tcpGraylog',
   silent: false,
   level: 'info',
@@ -36,10 +34,10 @@ var options = {
   }
 }
 
-var wGraylog = new winston.transports.TcpGraylog(options)
-var wConsole = new winston.transports.Console()
+const wGraylog = new winston.transports.TcpGraylog(options)
+const wConsole = new winston.transports.Console()
 
-var logger = new winston.Logger({
+const logger = new winston.Logger({
   transports: [ wGraylog, wConsole ]
 })
 

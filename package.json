@@ -2,13 +2,8 @@
   "name": "winston-tcp-graylog",
   "version": "1.0.13",
   "description": "graylog support for winston based on gelf-pro",
-  "main": "src-build",
-  "scripts": {
-    "prepublish": "npm run build",
-    "build": "babel src --retain-lines --out-dir src-build",
-    "eslint": "eslint $(find . -not -path '*/*-build/*' -not -path '*/node_modules/*' -type f -name '*.es6')",
-    "test": "npm run eslint"
-  },
+  "main": "src",
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nskazki/winston-tcp-graylog.git"
@@ -28,7 +23,6 @@
   },
   "homepage": "https://github.com/nskazki/winston-tcp-graylog#readme",
   "dependencies": {
-    "bluebird": "^3.1.1",
     "clear-require": "^1.0.1",
     "debug": "^2.2.0",
     "gelf-pro": "^0.2.0",
@@ -36,12 +30,10 @@
     "lodash": "^3.10.1",
     "moment": "^2.11.0",
     "pkginfo": "^0.3.1",
-    "simple-debugger": "^1.0.3"
+    "simple-debugger": "^1.0.3",
+    "util-promisifyall": "^1.0.3"
   },
   "devDependencies": {
-    "babel": "^5.8.23",
-    "babel-eslint": "^4.1.6",
-    "eslint": "1.10.1",
     "winston": "^2.1.1"
   }
 }
