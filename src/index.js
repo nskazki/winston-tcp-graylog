@@ -1,17 +1,15 @@
-'use strict'
-
-import { debugEvents, debugMethods } from 'simple-debugger'
-import { extend, trim, merge, map, mapValues,
+const { debugEvents, debugMethods } = require('simple-debugger')
+const { extend, trim, merge, map, mapValues,
   isArray, isNumber, isString, isRegExp,
-  isFunction, isObject, isBoolean } from 'lodash'
-import { projectVersion, projectName, projectHost } from './projectInfo'
-import { inspect } from 'util'
-import P from 'bluebird'
-import Debug from 'debug'
-import winston from 'winston'
-import moment from 'moment'
-import clearRequire from 'clear-require'
-import validate from './validate'
+  isFunction, isObject, isBoolean }  =  require('lodash')
+const { projectVersion, projectName, projectHost }  =  require('./projectInfo')
+const { inspect }  =  require('util')
+const P  =  require('bluebird')
+const Debug  =  require('debug')
+const winston  =  require('winston')
+const moment  =  require('moment')
+const clearRequire  =  require('clear-require')
+const validate  =  require('./validate')
 
 let wtgDebug = new Debug('libs-winston-tcp-graylog')
 
@@ -173,5 +171,5 @@ class WinstonTcpGraylog extends winston.Transport {
   }
 }
 
-export default WinstonTcpGraylog
+module.exports = WinstonTcpGraylog
 winston.transports.TcpGraylog = WinstonTcpGraylog
