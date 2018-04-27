@@ -2,7 +2,7 @@
   "name": "winston-tcp-graylog",
   "version": "1.0.12",
   "description": "graylog support for winston based on gelf-pro",
-  "main": "src-build",
+  "main": "src",
   "scripts": {
   },
   "repository": {
