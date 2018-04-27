@@ -4,12 +4,12 @@ const { extend, trim, merge, map, mapValues,
   isFunction, isObject, isBoolean }  =  require('lodash')
 const { projectVersion, projectName, projectHost }  =  require('./projectInfo')
 const { inspect }  =  require('util')
-const P  =  require('bluebird')
 const Debug  =  require('debug')
 const winston  =  require('winston')
 const moment  =  require('moment')
 const clearRequire  =  require('clear-require')
 const validate  =  require('./validate')
+const promisifyAll = require('util-promisifyall');
 
 let wtgDebug = new Debug('libs-winston-tcp-graylog')
 
@@ -88,7 +88,7 @@ class WinstonTcpGraylog extends winston.Transport {
 
   _setupGelf() {
     clearRequire('gelf-pro')
-    this._gelf = require('gelf-pro')
+    this._gelf = promisifyAll(require('gelf-pro'))
     this._gelf.setConfig(this._config.gelfPro)
 
     wtgDebug('gelfPro: %j', this._config.gelfPro)
@@ -151,8 +151,8 @@ class WinstonTcpGraylog extends winston.Transport {
 
     // prepare and send gelfMsg
     let gelfMsg = this._gelf.getStringFromObject(resMsg)
-    return P
-      .fromNode(cb => this._gelf.send(gelfMsg, cb))
+
+    this._gelf.sendAsync(gelfMsg)
       .then(res => {
         wtgDebug('send', gelfMsg)
         this.emit('send', gelfMsg, res)
@@ -161,6 +161,7 @@ class WinstonTcpGraylog extends winston.Transport {
       .catch((rawErr = {}) => {
         let message = `WinstonTcpGraylog#handler problem: gelf-pro return error! \
           \n\t err: ${rawErr.message || inspect(rawErr)}`
+        console.log(rawErr.stack);
         let err = rawErr.message
           ? extend(rawErr, { message })
           : new Error(message)
