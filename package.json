@@ -5,7 +5,7 @@
   "main": "build",
   "scripts": {
     "prepublish": "npm run build",
-    "build": "babel src --retain-lines --out-dir build",
+    "build": "babel src -d build",
     "eslint": "eslint src example",
     "test": "npm run eslint"
   },
@@ -39,7 +39,10 @@
     "simple-debugger": "^1.0.3"
   },
   "devDependencies": {
-    "babel": "^5.8.23",
+    "@babel/cli": "^7.6.4",
+    "@babel/core": "^7.6.4",
+    "@babel/node": "^7.6.3",
+    "@babel/preset-env": "^7.6.3",
     "babel-eslint": "^4.1.6",
     "eslint": "1.10.1",
     "winston": "^2.1.1"
