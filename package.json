@@ -45,7 +45,7 @@
     "@babel/preset-env": "^7.6.3",
     "babel-eslint": "^10.0.3",
     "eslint": "^6.5.1",
-    "winston": "^2.1.1"
+    "winston": "^2.4.4"
   },
   "peerDependencies": {
     "winston": "*"
