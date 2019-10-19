@@ -5,5 +5,8 @@ module.exports = {
     targets: {
       node: 8
     }
+  }]],
+  plugins: [['add-module-exports', {
+    addDefaultProperty: true
   }]]
 }
