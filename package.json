@@ -2,11 +2,11 @@
   "name": "winston-tcp-graylog",
   "version": "1.0.13",
   "description": "graylog support for winston based on gelf-pro",
-  "main": "src-build",
+  "main": "build",
   "scripts": {
     "prepublish": "npm run build",
-    "build": "babel src --retain-lines --out-dir src-build",
-    "eslint": "eslint $(find . -not -path '*/*-build/*' -not -path '*/node_modules/*' -type f -name '*.es6')",
+    "build": "babel src --retain-lines --out-dir build",
+    "eslint": "eslint src example",
     "test": "npm run eslint"
   },
   "repository": {

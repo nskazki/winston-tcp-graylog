@@ -1,7 +1,7 @@
 'use strict'
 
 import winston from 'winston'
-import WinstonTcpGraylog from '../src'
+import '../src'
 
 var options = {
   name: 'tcpGraylog',
