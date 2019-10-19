@@ -1,7 +1,8 @@
 'use strict'
 
 import { debugEvents, debugMethods } from 'simple-debugger'
-import { extend, trim, merge, map, mapValues,
+import {
+  assign, trim, merge, map, mapValues,
   isArray, isNumber, isString, isRegExp,
   isFunction, isObject, isBoolean } from 'lodash'
 import { projectVersion, projectName, projectHost } from './projectInfo'
@@ -71,7 +72,7 @@ class WinstonTcpGraylog extends winston.Transport {
       log: 6,
       debug: 7
     }
-    this._levelMap = extend(myMap, (this._config.levelMap || this._config.levels))
+    this._levelMap = assign(myMap, (this._config.levelMap || this._config.levels))
 
     wtgDebug('levelMap: %j', this._levelMap)
     return this
@@ -83,7 +84,7 @@ class WinstonTcpGraylog extends winston.Transport {
     const host       = projectHost()
 
     const myBaseMsg = { appVersion, facility, host }
-    this._baseMsg = extend(myBaseMsg, this._config.baseMsg)
+    this._baseMsg = assign(myBaseMsg, this._config.baseMsg)
 
     wtgDebug('baseMsg: %j', this._baseMsg)
     return this
@@ -150,7 +151,7 @@ class WinstonTcpGraylog extends winston.Transport {
     const full_message = fmtMsg
     const humanTime  = moment().format('DD/MM HH:mm:ss (Z)')
     const curMsg = { level, humanLevel, short_message, full_message, humanTime }
-    const resMsg = this._normalizeMeta(extend({}, this._baseMsg, rawMeta, curMsg))
+    const resMsg = this._normalizeMeta(assign({}, this._baseMsg, rawMeta, curMsg))
 
     // prepare and send gelfMsg
     const gelfMsg = this._gelf.getStringFromObject(resMsg)
@@ -165,7 +166,7 @@ class WinstonTcpGraylog extends winston.Transport {
         const message = `WinstonTcpGraylog#handler problem: gelf-pro return error! \
           \n\t err: ${rawErr.message || inspect(rawErr)}`
         const err = rawErr.message
-          ? extend(rawErr, { message })
+          ? assign(rawErr, { message })
           : new Error(message)
         wtgDebug(err)
         this.emit('error', err)
