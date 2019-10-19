@@ -3,7 +3,7 @@
 import { isFunction } from 'lodash'
 import JJV from 'jjv'
 
-let jjv = new JJV()
+const jjv = new JJV()
 export default jjv.validate.bind(jjv)
 
 /*
@@ -33,8 +33,8 @@ jjv.addSchema('config', {
       autor: 'nskazki@gmail.com'
     },
     levelMap: {
-      'panic': 3, // as error
-      'log':   7  // as debug
+      panic: 3, // as error
+      log:   7  // as debug
     }
   },
   properties: {
@@ -61,7 +61,7 @@ jjv.addSchema('config', {
       properties: {
         adapterName: {
           type: 'string',
-          enum: [ 'udp', 'tcp' ]
+          enum: ['udp', 'tcp']
         },
         adapterOptions: {
           type: 'object',

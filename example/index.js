@@ -3,7 +3,7 @@
 import winston from 'winston'
 import '../src'
 
-var options = {
+const options = {
   name: 'tcpGraylog',
   silent: false,
   level: 'info',
@@ -36,11 +36,11 @@ var options = {
   }
 }
 
-var wGraylog = new winston.transports.TcpGraylog(options)
-var wConsole = new winston.transports.Console()
+const wGraylog = new winston.transports.TcpGraylog(options)
+const wConsole = new winston.transports.Console()
 
-var logger = new winston.Logger({
-  transports: [ wGraylog, wConsole ]
+const logger = new winston.Logger({
+  transports: [wGraylog, wConsole]
 })
 
 logger
@@ -68,9 +68,6 @@ wGraylog
   })
 
 logger.info('123', { meta: 123, foo: 345, bar: 689, some: false })
-logger.warn('%j - %j - %s - %s', [1, 2, 3], { 1: 2 }, /123/, new Error('123'))
-logger.error(`some formatter message \
-  \n\t some: 123\
-  \n\t foo: 123\
-  \n\t bar: 345`)
-logger.info('345', { meta: 345 })
+logger.warn('%j - %j - %s - %s', [1, 2, 3], { 3: 4 }, /567/, new Error('890'))
+logger.error('some formatted message\n\t some: 123\n\t foo: 345\n\t bar: 678')
+logger.info('123', { meta: 345 })

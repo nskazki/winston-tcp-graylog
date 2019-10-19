@@ -8,7 +8,7 @@ import { dirname, basename } from 'path'
 
 export function projectVersion() {
   try {
-    let { version } = projectRootPackage()
+    const { version } = projectRootPackage()
     if (isString(version) && (trim(version).length > 0)) {
       return trim(version)
     } else {
@@ -21,8 +21,8 @@ export function projectVersion() {
 
 export function projectHost() {
   try {
-    let params = { encoding: 'utf8', timeout: 1e3 }
-    let cmd = 'hostname -f'
+    const params = { encoding: 'utf8', timeout: 1e3 }
+    const cmd = 'hostname -f'
     return execSync(cmd, params).replace(/[\n|\r]/g, '')
   } catch (_err) {
     return hostname()
@@ -34,7 +34,7 @@ export function projectRootModule() {
     return isNull(module.parent)
       ? module
       : _(module.parent)
-  })(module)
+  }(module))
 }
 
 export function projectRootPackage() {
@@ -47,7 +47,7 @@ export function projectRootPackage() {
 
 export function projectName() {
   try {
-    let { name } = projectRootPackage()
+    const { name } = projectRootPackage()
     if (isString(name) && (trim(name).length > 0)) {
       return trim(name)
     } else {
@@ -60,8 +60,8 @@ export function projectName() {
 
 export function projectDir() {
   try {
-    let cwd = process.cwd()
-    let { filename } = projectRootModule()
+    const cwd = process.cwd()
+    const { filename } = projectRootModule()
     return `${basename(cwd)}${dirname(filename).replace(cwd, '')}`
   } catch (_err) {
     return `[REPL on ${projectHost()}]`
