@@ -3,7 +3,7 @@
 module.exports = {
   presets: [['@babel/preset-env', {
     targets: {
-      node: true
+      node: 8
     }
   }]]
 }
