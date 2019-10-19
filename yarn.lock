@@ -1113,7 +1113,7 @@ debug@^3.2.6:
   dependencies:
     ms "^2.1.1"
 
-debug@^4.0.1, debug@^4.1.0:
+debug@^4.0.1, debug@^4.1.0, debug@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/debug/-/debug-4.1.1.tgz#3b72260255109c6b589cee050f1d516139664791"
   integrity sha512-pYAIzeRo8J6KPEaJ0VWOh5Pzkbw/RetuzehGM7QRRX5he4fPHx2rdKMB256ehJCkX+XRQm16eZLqLNS8RSZXZw==
@@ -1334,13 +1334,6 @@ expand-brackets@^2.1.4:
     regex-not "^1.0.0"
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
-
-extend-lodash@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/extend-lodash/-/extend-lodash-1.0.0.tgz#49ca82b1150481ab1be3a60ba8738946ed2ac8e1"
-  integrity sha1-ScqCsRUEgasb46YLqHOJRu0qyOE=
-  dependencies:
-    lodash "^3.10.1"
 
 extend-shallow@^2.0.1:
   version "2.0.1"
@@ -1977,7 +1970,7 @@ lodash@^3.10.1, lodash@~3.10:
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
   integrity sha1-W/Rejkm6QYnhfUgnid/RW9FAt7Y=
 
-lodash@^4.17.12, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.6.1:
+lodash@^4.17.12, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15:
   version "4.17.15"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
@@ -2689,14 +2682,13 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
   integrity sha1-tf3AjxKH6hF4Yo5BXiUTK3NkbG0=
 
-simple-debugger@^1.0.3:
-  version "1.0.14"
-  resolved "https://registry.yarnpkg.com/simple-debugger/-/simple-debugger-1.0.14.tgz#4e49a27dea25efffba0526ab2788c2a36e8a02e1"
-  integrity sha1-Tkmifeol7/+6BSarJ4jCo26KAuE=
+simple-debugger@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/simple-debugger/-/simple-debugger-2.0.1.tgz#bb35494f0b14dacae862d0fb8b1f577376148907"
+  integrity sha512-2XMIEtRaGUVRSFFNGkjTNuHQpkuEZRde1CxKZ+Elt62sE36Y+ulMvGXfni+1T7zwPCjVP7FwQlNpPtgXDCWHDA==
   dependencies:
-    debug "^2.2.0"
-    extend-lodash "^1.0.0"
-    lodash "^4.6.1"
+    debug "^4.1.1"
+    lodash "^4.17.15"
 
 slash@^2.0.0:
   version "2.0.0"

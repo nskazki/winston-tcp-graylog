@@ -36,7 +36,7 @@
     "lodash": "^3.10.1",
     "moment": "^2.11.0",
     "pkginfo": "^0.3.1",
-    "simple-debugger": "^1.0.3"
+    "simple-debugger": "^2.0.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.4",
