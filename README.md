@@ -1,18 +1,26 @@
 # winston-tcp-graylog
 
 ```
-npm i -S winston-tcp-graylog winston
+yarn add winston-tcp-graylog winston
 ```
 
-A [graylog2](http://www.graylog2.org) transport for [winston](https://github.com/flatiron/winston) based on the [node-gelf-pro](https://github.com/kkamkou/node-gelf-pro) library. Support TCP and UPD protocol.
+A [graylog](http://graylog.org) transport for [winston@2](https://github.com/flatiron/winston) based on the [gelf-pro@1](https://github.com/kkamkou/node-gelf-pro) library. Supports TCP and UPD protocol.
+
+### Important
+
+I'm sorry for not paying any attention to this repository for a long time.
+All the vulnerable packages including `gelf-pro` have been upgraded in `winston-tcp-graylog@1.0.14`.
+`winston-tcp-graylog@1.0.13` has been deprecated.
 
 ### Example
 
 ```js
-import winston from 'winston'
-import WinstonTcpGraylog from '../src'
+'use strict'
 
-var options = {
+import winston from 'winston'
+import 'winston-tcp-graylog'
+
+const options = {
   gelfPro: {
     adapterName: 'tcp',
     adapterOptions: {
@@ -22,43 +30,41 @@ var options = {
   }
 }
 
-var wGraylog = new winston.transports.TcpGraylog(options)
-var wConsole = new winston.transports.Console()
+const wGraylog = new winston.transports.TcpGraylog(options)
+const wConsole = new winston.transports.Console()
 
-var logger = new winston.Logger({
-  transports: [ wGraylog, wConsole ]
+const logger = new winston.Logger({
+  transports: [wGraylog, wConsole]
 })
 
 logger
   .on('error', err => {
     // internal winston problems
-    console.error('!error: ', err)
+    console.error(' !error: ', err)
   })
   .on('logging', (transport, level, msg, meta) => {
     // each winston transports
-    console.info('!logging: ', transport.name, level, msg, meta)
+    console.info(' !logging: ', transport.name, level, msg, meta)
   })
 
 wGraylog
   .on('error', err => {
     // internal WinstonTcpGraylog problems
-    console.error('!wtg:error: ', err)
+    console.error(' !wtg:error: ', err)
   })
   .on('send', (msg, res) => {
     // only WinstonTcpGraylog "logging"
-    console.info('!wtg:send: ', msg, res)
+    console.info(' !wtg:send: ', msg, res)
   })
   .on('skip', warn => {
     // only WinstonTcpGraylog "skiping"
-    console.warn('!wtg:skip: ', warn)
+    console.warn(' !wtg:skip: ', warn)
   })
 
-logger.info('123', { meta: 123, foo: 345, bar: 689 })
-logger.warn('%j - %j - %s - %s', [1, 2, 3], { 1: 2 }, /123/, new Error('123'))
-logger.error(`some formatted message \
-  \n\t some: 123\
-  \n\t foo: 123\
-  \n\t bar: 345`)
+logger.info('123', { meta: 123, foo: 345, bar: 689, some: false })
+logger.warn('%j - %j - %s - %s', [1, 2, 3], { 3: 4 }, /567/, new Error('890'))
+logger.error('some formatted message\n\t some: 123\n\t foo: 345\n\t bar: 678')
+logger.info('123', { meta: 345 })
 ```
 
 ### Config
@@ -86,7 +92,7 @@ logger.error(`some formatted message \
     baseMsg: {
         version: '1.1',    // GELF spec version
         appVersion: '...', // package.version || unknown version
-        facility: '...',   // package.name || app-dir        
+        facility: '...',   // package.name || app-dir
         host: '...'        // hostname -f || os.hostname()
     },
     gelfPro: {
