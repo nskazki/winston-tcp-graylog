@@ -29,7 +29,7 @@
   "homepage": "https://github.com/nskazki/winston-tcp-graylog#readme",
   "dependencies": {
     "bluebird": "^3.1.1",
-    "clear-require": "^1.0.1",
+    "clear-module": "^4.0.0",
     "debug": "^2.2.0",
     "gelf-pro": "^0.2.0",
     "jjv": "^1.0.2",

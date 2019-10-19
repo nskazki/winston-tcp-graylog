@@ -10,7 +10,7 @@ import P from 'bluebird'
 import Debug from 'debug'
 import winston from 'winston'
 import moment from 'moment'
-import clearRequire from 'clear-require'
+import clearModule from 'clear-module'
 import validate from './validate'
 
 const wtgDebug = new Debug('libs-winston-tcp-graylog')
@@ -90,7 +90,7 @@ class WinstonTcpGraylog extends winston.Transport {
   }
 
   _setupGelf() {
-    clearRequire('gelf-pro')
+    clearModule('gelf-pro')
     this._gelf = require('gelf-pro')
     this._gelf.setConfig(this._config.gelfPro)
 
