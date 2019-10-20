@@ -2686,10 +2686,10 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
   integrity sha1-tf3AjxKH6hF4Yo5BXiUTK3NkbG0=
 
-simple-debugger@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/simple-debugger/-/simple-debugger-2.0.1.tgz#bb35494f0b14dacae862d0fb8b1f577376148907"
-  integrity sha512-2XMIEtRaGUVRSFFNGkjTNuHQpkuEZRde1CxKZ+Elt62sE36Y+ulMvGXfni+1T7zwPCjVP7FwQlNpPtgXDCWHDA==
+simple-debugger@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/simple-debugger/-/simple-debugger-3.0.0.tgz#3841de3d1b245d1e87ccd1ac0e73fe6016e3351e"
+  integrity sha512-eIxsIaO7ClL3pL35R9l+RHYuk43AGYIC6xA6Qpo/39KjzQ3VnnB6pUYdPMxCKr/4uKEhGh5u4so9JbzDkBOKwA==
   dependencies:
     debug "^4.1.1"
     lodash "^4.17.15"
